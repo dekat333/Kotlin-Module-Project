@@ -1,3 +1,3 @@
-data class Archive(val name: String?){
+data class Archive(val name: String?, val content: MutableList<Note>){
 
 }
