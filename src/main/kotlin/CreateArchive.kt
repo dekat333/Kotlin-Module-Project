@@ -9,28 +9,27 @@ class CreateArchive {
 
     fun archiveMenu() {
          while (true) {
-             Menu().menuArchive()
-             println("Введите номер команды: ")
-             var number = Scanner(System.`in`).nextLine()
-             when (number) {
-                 "0" -> createArch()
-                 "1" -> {
-                     try{
-                     println(archiveList)
-                     println("Введите номер архива для открытия (от 0): ")
-                     var archiveNumber = Scanner(System.`in`).nextLine().toInt()
-                     if (archiveNumber  in 0..archiveList.size) {
-                     note.noteMenu(archiveList[archiveNumber].content)
-                     }
-                     }catch (e: Exception) {
-                         println("Ошибка, введите верный номер архива!")
+                 Menu().menuArchive(archiveList)
+             var numberString:String = Menu().inputCommand()
+             if (numberString.contains("[0-9]".toRegex())) {
+                 var number = numberString.toInt()
+                 if (archiveList.isEmpty() && number == 1) {
+                     println("Ошибка, введите верный номер команды: ")
+                 } else {
+                     when (number) {
+                         0 -> createArch()
+                         in 1..archiveList.size -> {
+                             note.noteMenu(archiveList[number - 1].content)
+                         }
+                         archiveList.size + 1 -> {
+                             println("Работа программы Заметки завершена!")
+                             break
+                         }
+                         else -> println("Ошибка, введите верный номер команды: ")
                      }
                  }
-                 "2" -> {
-                     println("Работа программы Заметки завершена!")
-                     break
-                 }
-                 else ->  println ("Ошибка, введите верный номер команды: ")
+             }else{
+                 println("Вы ввели не цифру! Введите верный номер команды: ")
              }
          }
     }
