@@ -1,3 +1,9 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun onStart() {
+    println("Приложение Заметки запущено!")
+}
+
+fun main() {
+    onStart()
+    CreateArchive().archiveMenu()
+
 }
